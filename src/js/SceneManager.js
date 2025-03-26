@@ -22,7 +22,7 @@ export class SceneManager {
         this.setupLighting();
         
         // Set up fog for depth but make it less dense
-        this.scene.fog = new THREE.FogExp2(0x0a0a18, 0.0007);
+        this.scene.fog = new THREE.FogExp2(0x0a0a18, 0.0005);
     }
     
     setupRenderer() {
@@ -34,7 +34,7 @@ export class SceneManager {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.5;
+        this.renderer.toneMappingExposure = 2.0;
         this.renderer.shadowMap.enabled = true;
         this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         this.container.appendChild(this.renderer.domElement);
@@ -72,68 +72,75 @@ export class SceneManager {
             }
         });
         
-        // Ambient light - increased intensity but darker to emphasize neon
-        const ambientLight = new THREE.AmbientLight(0x333344, 0.5);
+        // Ambient light - increased intensity for better overall illumination
+        const ambientLight = new THREE.AmbientLight(0x555566, 1.0);
         this.scene.add(ambientLight);
         
-        // Main light from front-right-top - increased intensity
-        const mainLight = new THREE.DirectionalLight(0xffffff, 2.0);
+        // Main light from front-right-top - brighter
+        const mainLight = new THREE.DirectionalLight(0xffffff, 2.5);
         mainLight.position.set(5, 5, 8);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
+        mainLight.shadow.radius = 3;
+        mainLight.shadow.bias = -0.0001;
         this.scene.add(mainLight);
         
-        // Add a strong white light from the front specifically for the logo
-        const logoLight = new THREE.SpotLight(0xffffff, 2.5);
+        // Main front light for the logo - significantly brighter
+        const logoLight = new THREE.SpotLight(0xffffff, 4.0);
         logoLight.position.set(0, 0, 15);
-        logoLight.angle = Math.PI / 6;
-        logoLight.penumbra = 0.5;
-        logoLight.decay = 1;
+        logoLight.angle = Math.PI / 5;
+        logoLight.penumbra = 0.7;
+        logoLight.decay = 1.5;
         logoLight.distance = 100;
         this.scene.add(logoLight);
+        
+        // Add additional front fill light for better logo visibility
+        const frontFillLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        frontFillLight.position.set(0, 0, 10);
+        this.scene.add(frontFillLight);
         
         // CYBERPUNK NEON LIGHTS
         
         // Neon Red Light - from right side
-        const neonRedLight = new THREE.PointLight(0xff0055, 2, 100);
+        const neonRedLight = new THREE.PointLight(0xff0055, 4.0, 120);
         neonRedLight.position.set(15, 0, 5);
         this.scene.add(neonRedLight);
         
         // Add red spotlight for dramatic effect
-        const redSpotlight = new THREE.SpotLight(0xff0055, 3, 100, Math.PI / 6, 0.5);
+        const redSpotlight = new THREE.SpotLight(0xff0055, 5.0, 120, Math.PI / 6, 0.5);
         redSpotlight.position.set(20, 5, 10);
         redSpotlight.target.position.set(0, 0, 0);
         this.scene.add(redSpotlight);
         this.scene.add(redSpotlight.target);
         
         // Neon Blue Light - from left side
-        const neonBlueLight = new THREE.PointLight(0x00aaff, 2, 100);
+        const neonBlueLight = new THREE.PointLight(0x00aaff, 4.0, 120);
         neonBlueLight.position.set(-15, 0, 5);
         this.scene.add(neonBlueLight);
         
         // Add blue spotlight for dramatic effect
-        const blueSpotlight = new THREE.SpotLight(0x00aaff, 3, 100, Math.PI / 6, 0.5);
+        const blueSpotlight = new THREE.SpotLight(0x00aaff, 5.0, 120, Math.PI / 6, 0.5);
         blueSpotlight.position.set(-20, 5, 10);
         blueSpotlight.target.position.set(0, 0, 0);
         this.scene.add(blueSpotlight);
         this.scene.add(blueSpotlight.target);
         
         // Add some neon glow from below for dramatic cyberpunk lighting
-        const bottomRedLight = new THREE.PointLight(0xff0055, 1.5, 50);
+        const bottomRedLight = new THREE.PointLight(0xff0055, 3.0, 70);
         bottomRedLight.position.set(5, -10, 5);
         this.scene.add(bottomRedLight);
         
-        const bottomBlueLight = new THREE.PointLight(0x00aaff, 1.5, 50);
+        const bottomBlueLight = new THREE.PointLight(0x00aaff, 3.0, 70);
         bottomBlueLight.position.set(-5, -10, 5);
         this.scene.add(bottomBlueLight);
         
-        // Pulsing lights - will be animated in the render loop
-        this.redNeonPulse = new THREE.PointLight(0xff0055, 1, 30);
+        // Pulsing lights - increased base intensity and range
+        this.redNeonPulse = new THREE.PointLight(0xff0055, 2.0, 50);
         this.redNeonPulse.position.set(10, 0, 10);
         this.scene.add(this.redNeonPulse);
         
-        this.blueNeonPulse = new THREE.PointLight(0x00aaff, 1, 30);
+        this.blueNeonPulse = new THREE.PointLight(0x00aaff, 2.0, 50);
         this.blueNeonPulse.position.set(-10, 0, 10);
         this.scene.add(this.blueNeonPulse);
     }
@@ -147,13 +154,13 @@ export class SceneManager {
     render() {
         this.controls.update();
         
-        // Animate the neon pulsing lights
+        // Animate the neon pulsing lights - increased pulse range
         if (this.redNeonPulse && this.blueNeonPulse) {
-            const pulseFactor = Math.sin(Date.now() * 0.003) * 0.5 + 1.0; // Value between 0.5 and 1.5
+            const pulseFactor = Math.sin(Date.now() * 0.003) * 0.8 + 1.8;
             this.redNeonPulse.intensity = pulseFactor;
             
             // Offset the blue pulse to create alternating effect
-            const pulseFactorBlue = Math.sin(Date.now() * 0.003 + Math.PI) * 0.5 + 1.0;
+            const pulseFactorBlue = Math.sin(Date.now() * 0.003 + Math.PI) * 0.8 + 1.8;
             this.blueNeonPulse.intensity = pulseFactorBlue;
         }
         

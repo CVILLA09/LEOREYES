@@ -14,21 +14,24 @@ export class LogoManager {
         
         // Load font and create text
         fontLoader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-            // Create materials for the extruded text - brighter and more reflective
+            // Create materials for the extruded text - even brighter and more metallic
             const materials = [
                 // Side material
                 new THREE.MeshStandardMaterial({
-                    color: 0x444444, 
-                    metalness: 0.95,
-                    roughness: 0.1, // More reflective
-                    side: THREE.DoubleSide
+                    color: 0x666666, // Lighter gray for sides
+                    metalness: 0.98,
+                    roughness: 0.05, // Very smooth for high reflectivity
+                    side: THREE.DoubleSide,
+                    envMapIntensity: 2.0 // Stronger reflections
                 }),
                 // Front material
                 new THREE.MeshStandardMaterial({
-                    color: 0xFFFFFF, // Pure white for brighter reflections
+                    color: 0xFFFFFF, // Pure white for maximum brightness
                     metalness: 1.0,
-                    roughness: 0.05, // Very reflective
-                    envMapIntensity: 1.5 // Increased reflection intensity
+                    roughness: 0.03, // Almost mirror-like
+                    envMapIntensity: 2.5, // Much stronger reflections
+                    emissive: 0x222222, // Slight self-illumination
+                    emissiveIntensity: 0.2
                 })
             ];
             
@@ -37,12 +40,12 @@ export class LogoManager {
                 font: font,
                 size: 1.0,
                 height: 0.4,
-                curveSegments: 6, // Slightly higher for smoother curves
+                curveSegments: 8, // Increased for smoother curves
                 bevelEnabled: true,
                 bevelThickness: 0.05,
-                bevelSize: 0.03, // Slightly larger bevel
+                bevelSize: 0.03,
                 bevelOffset: 0,
-                bevelSegments: 5 // More segments for smoother bevel
+                bevelSegments: 6 // More segments for smoother bevel
             });
             
             // Second word: "REYES"
@@ -50,12 +53,12 @@ export class LogoManager {
                 font: font,
                 size: 1.0,
                 height: 0.4,
-                curveSegments: 6,
+                curveSegments: 8, // Increased for smoother curves
                 bevelEnabled: true,
                 bevelThickness: 0.05,
                 bevelSize: 0.03,
                 bevelOffset: 0,
-                bevelSegments: 5
+                bevelSegments: 6 // More segments for smoother bevel
             });
             
             // Center geometries
@@ -89,7 +92,7 @@ export class LogoManager {
     }
     
     addEnvironmentMap() {
-        // Create a more vibrant environment map for reflection
+        // Create a more vibrant environment map for stronger reflections
         const cubeTextureLoader = new THREE.CubeTextureLoader();
         const path = 'https://threejs.org/examples/textures/cube/MilkyWay/';
         const format = '.jpg';
@@ -100,7 +103,7 @@ export class LogoManager {
         ];
         
         const reflectionCube = cubeTextureLoader.load(urls);
-        reflectionCube.intensity = 2.0; // Brighter reflections
+        reflectionCube.intensity = 3.0; // Much brighter reflections
         this.scene.environment = reflectionCube;
     }
     
@@ -110,11 +113,15 @@ export class LogoManager {
             this.logo.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
             this.logo.rotation.x = Math.sin(Date.now() * 0.0003) * 0.05;
             
-            // Add subtle shine effect by modifying material properties based on time
+            // Add enhanced shine effect by modifying material properties based on time
             if (this.logo.children[0] && this.logo.children[0].material && Array.isArray(this.logo.children[0].material)) {
                 const frontMaterial = this.logo.children[0].material[1];
-                const pulseFactor = Math.sin(Date.now() * 0.001) * 0.1 + 0.9; // Value between 0.8 and 1.0
-                frontMaterial.envMapIntensity = 1.5 * pulseFactor;
+                const pulseFactor = Math.sin(Date.now() * 0.001) * 0.15 + 0.95; // Enhanced range
+                frontMaterial.envMapIntensity = 2.5 * pulseFactor;
+                
+                // Add subtle emissive pulsing for extra shine
+                const emissiveFactor = Math.sin(Date.now() * 0.001 - Math.PI/4) * 0.1 + 0.2;
+                frontMaterial.emissiveIntensity = emissiveFactor;
             }
         }
     }

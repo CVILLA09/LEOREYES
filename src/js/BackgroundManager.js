@@ -16,8 +16,8 @@ export class BackgroundManager {
     
     createStars() {
         // Parameters
-        const particleCount = 18000; // Increased from 12000
-        const particleSize = 0.08; // Increased from 0.05
+        const particleCount = 30000; // Increased from 18000 to match reference image
+        const particleSize = 0.1; // Increased from 0.08
         const particleDistance = 150;
         
         // Create particles
@@ -42,23 +42,23 @@ export class BackgroundManager {
             positions[i * 3 + 2] = z;
             
             // Randomize size with many more bright stars
-            sizes[i] = Math.random() > 0.7 ? 
-                0.1 + Math.random() * 0.2 : // 30% brighter stars
-                0.05 + Math.random() * 0.05; // Base stars bigger too
+            sizes[i] = Math.random() > 0.6 ? 
+                0.15 + Math.random() * 0.25 : // 40% brighter stars (increased from 30%)
+                0.08 + Math.random() * 0.08; // Base stars bigger too
             
             // Star colors (mostly white, with more colored stars)
             if (Math.random() > 0.85) {
                 // Blue stars
-                colors[i * 3] = 0.7 + Math.random() * 0.3;
-                colors[i * 3 + 1] = 0.7 + Math.random() * 0.3;
+                colors[i * 3] = 0.8 + Math.random() * 0.2;
+                colors[i * 3 + 1] = 0.8 + Math.random() * 0.2;
                 colors[i * 3 + 2] = 1.0;
             } else if (Math.random() > 0.85) {
                 // Yellow/red stars
                 colors[i * 3] = 1.0;
-                colors[i * 3 + 1] = 0.7 + Math.random() * 0.3;
-                colors[i * 3 + 2] = 0.6 * Math.random();
+                colors[i * 3 + 1] = 0.8 + Math.random() * 0.2;
+                colors[i * 3 + 2] = 0.7 * Math.random();
             } else {
-                // White stars
+                // White stars - brighter
                 colors[i * 3] = 1.0;
                 colors[i * 3 + 1] = 1.0;
                 colors[i * 3 + 2] = 1.0;
