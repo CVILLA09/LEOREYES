@@ -33,7 +33,7 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 25px 60px;
+    padding: 25px 150px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,7 +52,7 @@ body, html {
 }
 
 .nav-logo {
-    height: 100px;
+    height: 110px;
 }
 
 .nav-links {
@@ -64,7 +64,7 @@ body, html {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 2px;
     transition: color 0.3s ease;
     text-transform: uppercase;
@@ -80,13 +80,13 @@ body, html {
 }
 
 .nav-button {
-    padding: 12px 25px;
+    padding: 12px 28px;
     background-color: rgba(30, 30, 30, 0.8);
     border-radius: 30px;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 2px;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
