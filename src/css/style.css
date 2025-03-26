@@ -33,11 +33,11 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 25px 150px;
+    padding: 25px 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 10;
+    z-index: 1000;
 }
 
 .nav-left {
@@ -55,6 +55,13 @@ body, html {
     height: 110px;
 }
 
+.logo-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1001;
+}
+
 .nav-links {
     display: flex;
     gap: 50px;
@@ -68,6 +75,9 @@ body, html {
     letter-spacing: 2px;
     transition: color 0.3s ease;
     text-transform: uppercase;
+    position: relative;
+    z-index: 1001;
+    padding: 5px 0;
 }
 
 .nav-link:hover {
@@ -90,6 +100,8 @@ body, html {
     letter-spacing: 2px;
     transition: background-color 0.3s ease;
     text-transform: uppercase;
+    position: relative;
+    z-index: 1001;
 }
 
 .nav-button:hover {
