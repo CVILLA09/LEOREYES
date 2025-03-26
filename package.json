@@ -1,0 +1,25 @@
+{
+  "name": "leo-reyes-website",
+  "version": "1.0.0",
+  "description": "Leo Reyes 3D website with Three.js",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "three.js",
+    "3d",
+    "website",
+    "music"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.8"
+  }
+} 
