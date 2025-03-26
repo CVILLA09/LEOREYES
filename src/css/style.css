@@ -165,13 +165,13 @@ body, html {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 500px; /* Position below the 3D logo */
+    margin-top: 500px; /* Better position below the 3D logo */
     pointer-events: auto; /* Make the social icons clickable */
 }
 
 .home-social-links .social-icon {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 50%;
     display: flex;
@@ -179,7 +179,7 @@ body, html {
     justify-content: center;
     color: white;
     text-decoration: none;
-    font-size: 30px;
+    font-size: 22px;
     transition: all 0.3s ease;
 }
 
