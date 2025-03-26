@@ -1,6 +1,5 @@
 import * as THREE from 'three';
-import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 export class LogoManager {
     constructor(scene) {
@@ -10,98 +9,57 @@ export class LogoManager {
     }
     
     loadLogo() {
-        const fontLoader = new FontLoader();
+        // Create materials for the 3D model - silver metallic
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0xB8B8BD, // Silver with slight blue tint
+            metalness: 1.0,
+            roughness: 0.07,
+            reflectivity: 1.0,
+            clearcoat: 0.3, // Add subtle clearcoat for shine
+            clearcoatRoughness: 0.3,
+            envMapIntensity: 2.5
+        });
         
-        // Load font and create text
-        fontLoader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-            // Create materials for the extruded text - silver metallic
-            const materials = [
-                // Side material - darker silver for sides
-                new THREE.MeshStandardMaterial({
-                    color: 0x444444, // Darker gray for sides for better contrast
-                    metalness: 0.95,
-                    roughness: 0.2, // Slightly rougher for metal depth
-                    side: THREE.DoubleSide,
-                    envMapIntensity: 2.0 // Keep strong reflections
-                }),
-                // Front material - silver metallic
-                new THREE.MeshStandardMaterial({
-                    color: 0xC0C0C0, // True silver color instead of white
-                    metalness: 1.0,
-                    roughness: 0.05, // Slight roughness for genuine metal look
-                    envMapIntensity: 2.5, // Keep strong reflections
-                    emissive: 0x111111, // Slight self-illumination
-                    emissiveIntensity: 0.1 // Reduced for less "glow"
-                })
-            ];
-            
-            // Add silver gradient effect with special shader material
-            const frontMaterialEnhanced = new THREE.MeshPhysicalMaterial({
-                color: 0xB8B8BD, // Silver with slight blue tint
-                metalness: 1.0,
-                roughness: 0.07,
-                reflectivity: 1.0,
-                clearcoat: 0.3, // Add subtle clearcoat for shine
-                clearcoatRoughness: 0.3,
-                envMapIntensity: 2.5
+        // Load the OBJ file
+        const objLoader = new OBJLoader();
+        objLoader.load('/src/assets/models/logo.obj', (object) => {
+            // Apply material to all meshes in the loaded object
+            object.traverse((child) => {
+                if (child instanceof THREE.Mesh) {
+                    child.material = material;
+                    
+                    // Ensure smooth shading for better quality
+                    child.geometry.computeVertexNormals();
+                }
             });
-            
-            // Replace the standard material with the enhanced one
-            materials[1] = frontMaterialEnhanced;
-            
-            // First word: "LEO"
-            const leoGeometry = new TextGeometry('LEO', {
-                font: font,
-                size: 1.0,
-                height: 0.4,
-                curveSegments: 8, // Keep high segments for smoother curves
-                bevelEnabled: true,
-                bevelThickness: 0.05,
-                bevelSize: 0.03,
-                bevelOffset: 0,
-                bevelSegments: 6 // Keep high segments for smoother bevel
-            });
-            
-            // Second word: "REYES"
-            const reyesGeometry = new TextGeometry('REYES', {
-                font: font,
-                size: 1.0,
-                height: 0.4,
-                curveSegments: 8,
-                bevelEnabled: true,
-                bevelThickness: 0.05,
-                bevelSize: 0.03,
-                bevelOffset: 0,
-                bevelSegments: 6
-            });
-            
-            // Center geometries
-            leoGeometry.computeBoundingBox();
-            reyesGeometry.computeBoundingBox();
-            
-            const leoWidth = leoGeometry.boundingBox.max.x - leoGeometry.boundingBox.min.x;
-            const reyesWidth = reyesGeometry.boundingBox.max.x - reyesGeometry.boundingBox.min.x;
-            
-            // Create meshes with both materials
-            const leoMesh = new THREE.Mesh(leoGeometry, materials);
-            const reyesMesh = new THREE.Mesh(reyesGeometry, materials);
-            
-            // Position the meshes
-            leoMesh.position.set(-leoWidth / 2, 0.6, 0);
-            reyesMesh.position.set(-reyesWidth / 2, -0.6, 0);
             
             // Create a group for the logo
             this.logo = new THREE.Group();
-            this.logo.add(leoMesh, reyesMesh);
+            this.logo.add(object);
             
-            // Scale to desired size
-            this.logo.scale.set(1.2, 1.2, 1.2);
+            // Scale and position as needed
+            this.logo.scale.set(0.05, 0.05, 0.05); // Adjust scale to fit scene
+            
+            // Center the model based on its bounding box
+            const bbox = new THREE.Box3().setFromObject(this.logo);
+            const center = bbox.getCenter(new THREE.Vector3());
+            this.logo.position.x = -center.x;
+            this.logo.position.y = -center.y;
+            this.logo.position.z = -center.z;
             
             // Add environment map to enhance metallic look
             this.addEnvironmentMap();
             
             // Add to scene
             this.scene.add(this.logo);
+        }, 
+        // onProgress callback
+        (xhr) => {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+        // onError callback
+        (error) => {
+            console.error('Error loading OBJ file:', error);
         });
     }
     
@@ -127,29 +85,31 @@ export class LogoManager {
             this.logo.rotation.y = Math.sin(Date.now() * 0.0005) * 0.1;
             this.logo.rotation.x = Math.sin(Date.now() * 0.0003) * 0.05;
             
-            // Add enhanced shine effect by modifying material properties based on time
-            if (this.logo.children[0] && this.logo.children[0].material && Array.isArray(this.logo.children[0].material)) {
-                const frontMaterial = this.logo.children[0].material[1];
-                const pulseFactor = Math.sin(Date.now() * 0.001) * 0.2 + 0.95; // Enhanced pulse range
-                
-                if (frontMaterial.envMapIntensity !== undefined) {
-                    frontMaterial.envMapIntensity = 2.5 * pulseFactor;
+            // Traverse the logo group to find material to animate
+            this.logo.traverse((child) => {
+                if (child instanceof THREE.Mesh && child.material) {
+                    const material = child.material;
+                    const pulseFactor = Math.sin(Date.now() * 0.001) * 0.2 + 0.95; // Enhanced pulse range
+                    
+                    if (material.envMapIntensity !== undefined) {
+                        material.envMapIntensity = 2.5 * pulseFactor;
+                    }
+                    
+                    // Add subtle color variation for metallic effect
+                    if (material.color) {
+                        // Slightly shift between silver tones
+                        const silverBase = new THREE.Color(0xB8B8BD);
+                        const silverHighlight = new THREE.Color(0xD6D6D6);
+                        const colorFactor = Math.sin(Date.now() * 0.0008) * 0.5 + 0.5; // Value 0-1
+                        material.color.lerpColors(silverBase, silverHighlight, colorFactor);
+                    }
+                    
+                    // Add clearcoat variation if it's a physical material
+                    if (material.clearcoat !== undefined) {
+                        material.clearcoat = 0.3 + Math.sin(Date.now() * 0.001) * 0.15;
+                    }
                 }
-                
-                // Add subtle color variation for metallic effect
-                if (frontMaterial.color) {
-                    // Slightly shift between silver tones
-                    const silverBase = new THREE.Color(0xB8B8BD);
-                    const silverHighlight = new THREE.Color(0xD6D6D6);
-                    const colorFactor = Math.sin(Date.now() * 0.0008) * 0.5 + 0.5; // Value 0-1
-                    frontMaterial.color.lerpColors(silverBase, silverHighlight, colorFactor);
-                }
-                
-                // Add clearcoat variation if it's a physical material
-                if (frontMaterial.clearcoat !== undefined) {
-                    frontMaterial.clearcoat = 0.3 + Math.sin(Date.now() * 0.001) * 0.15;
-                }
-            }
+            });
         }
     }
 } 
