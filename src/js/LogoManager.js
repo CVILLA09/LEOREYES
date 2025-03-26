@@ -14,38 +14,52 @@ export class LogoManager {
         
         // Load font and create text
         fontLoader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-            // Create materials for the extruded text - even brighter and more metallic
+            // Create materials for the extruded text - silver metallic
             const materials = [
-                // Side material
+                // Side material - darker silver for sides
                 new THREE.MeshStandardMaterial({
-                    color: 0x666666, // Lighter gray for sides
-                    metalness: 0.98,
-                    roughness: 0.05, // Very smooth for high reflectivity
+                    color: 0x444444, // Darker gray for sides for better contrast
+                    metalness: 0.95,
+                    roughness: 0.2, // Slightly rougher for metal depth
                     side: THREE.DoubleSide,
-                    envMapIntensity: 2.0 // Stronger reflections
+                    envMapIntensity: 2.0 // Keep strong reflections
                 }),
-                // Front material
+                // Front material - silver metallic
                 new THREE.MeshStandardMaterial({
-                    color: 0xFFFFFF, // Pure white for maximum brightness
+                    color: 0xC0C0C0, // True silver color instead of white
                     metalness: 1.0,
-                    roughness: 0.03, // Almost mirror-like
-                    envMapIntensity: 2.5, // Much stronger reflections
-                    emissive: 0x222222, // Slight self-illumination
-                    emissiveIntensity: 0.2
+                    roughness: 0.05, // Slight roughness for genuine metal look
+                    envMapIntensity: 2.5, // Keep strong reflections
+                    emissive: 0x111111, // Slight self-illumination
+                    emissiveIntensity: 0.1 // Reduced for less "glow"
                 })
             ];
+            
+            // Add silver gradient effect with special shader material
+            const frontMaterialEnhanced = new THREE.MeshPhysicalMaterial({
+                color: 0xB8B8BD, // Silver with slight blue tint
+                metalness: 1.0,
+                roughness: 0.07,
+                reflectivity: 1.0,
+                clearcoat: 0.3, // Add subtle clearcoat for shine
+                clearcoatRoughness: 0.3,
+                envMapIntensity: 2.5
+            });
+            
+            // Replace the standard material with the enhanced one
+            materials[1] = frontMaterialEnhanced;
             
             // First word: "LEO"
             const leoGeometry = new TextGeometry('LEO', {
                 font: font,
                 size: 1.0,
                 height: 0.4,
-                curveSegments: 8, // Increased for smoother curves
+                curveSegments: 8, // Keep high segments for smoother curves
                 bevelEnabled: true,
                 bevelThickness: 0.05,
                 bevelSize: 0.03,
                 bevelOffset: 0,
-                bevelSegments: 6 // More segments for smoother bevel
+                bevelSegments: 6 // Keep high segments for smoother bevel
             });
             
             // Second word: "REYES"
@@ -53,12 +67,12 @@ export class LogoManager {
                 font: font,
                 size: 1.0,
                 height: 0.4,
-                curveSegments: 8, // Increased for smoother curves
+                curveSegments: 8,
                 bevelEnabled: true,
                 bevelThickness: 0.05,
                 bevelSize: 0.03,
                 bevelOffset: 0,
-                bevelSegments: 6 // More segments for smoother bevel
+                bevelSegments: 6
             });
             
             // Center geometries
@@ -103,7 +117,7 @@ export class LogoManager {
         ];
         
         const reflectionCube = cubeTextureLoader.load(urls);
-        reflectionCube.intensity = 3.0; // Much brighter reflections
+        reflectionCube.intensity = 3.0; // Keep bright reflections
         this.scene.environment = reflectionCube;
     }
     
@@ -116,12 +130,25 @@ export class LogoManager {
             // Add enhanced shine effect by modifying material properties based on time
             if (this.logo.children[0] && this.logo.children[0].material && Array.isArray(this.logo.children[0].material)) {
                 const frontMaterial = this.logo.children[0].material[1];
-                const pulseFactor = Math.sin(Date.now() * 0.001) * 0.15 + 0.95; // Enhanced range
-                frontMaterial.envMapIntensity = 2.5 * pulseFactor;
+                const pulseFactor = Math.sin(Date.now() * 0.001) * 0.2 + 0.95; // Enhanced pulse range
                 
-                // Add subtle emissive pulsing for extra shine
-                const emissiveFactor = Math.sin(Date.now() * 0.001 - Math.PI/4) * 0.1 + 0.2;
-                frontMaterial.emissiveIntensity = emissiveFactor;
+                if (frontMaterial.envMapIntensity !== undefined) {
+                    frontMaterial.envMapIntensity = 2.5 * pulseFactor;
+                }
+                
+                // Add subtle color variation for metallic effect
+                if (frontMaterial.color) {
+                    // Slightly shift between silver tones
+                    const silverBase = new THREE.Color(0xB8B8BD);
+                    const silverHighlight = new THREE.Color(0xD6D6D6);
+                    const colorFactor = Math.sin(Date.now() * 0.0008) * 0.5 + 0.5; // Value 0-1
+                    frontMaterial.color.lerpColors(silverBase, silverHighlight, colorFactor);
+                }
+                
+                // Add clearcoat variation if it's a physical material
+                if (frontMaterial.clearcoat !== undefined) {
+                    frontMaterial.clearcoat = 0.3 + Math.sin(Date.now() * 0.001) * 0.15;
+                }
             }
         }
     }
