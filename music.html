@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Reyes - Music</title>
+    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/src/css/music.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html" class="logo-link">
+                    <img src="/src/assets/images/logo-small.svg" alt="Leo Reyes Logo" class="nav-logo">
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">HOME</a>
+                    <a href="music.html" class="nav-link active">MUSIC</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <a href="#" class="nav-button">SUBSCRIBE</a>
+            </div>
+        </nav>
+        
+        <div id="canvas-container"></div>
+        
+        <div class="content">
+            <div class="music-container">
+                <a href="#listen" class="cta-button">LISTEN TO MY MUSIC</a>
+                
+                <div id="listen" class="music-section">
+                    <div class="album-card">
+                        <img src="/src/assets/images/horizon-cover.svg" alt="Horizon (Leo Reyes Remix)" class="album-image">
+                        <div class="album-info">
+                            <h3>Horizon (Leo Reyes Remix)</h3>
+                            <p>Super8 & Tab</p>
+                            <div class="music-embeds">
+                                <!-- Apple Music Embed -->
+                                <div class="embed-container apple-music">
+                                    <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/horizon-leo-reyes-remix/1234567890?i=1234567890"></iframe>
+                                </div>
+                                
+                                <!-- Spotify Embed -->
+                                <div class="embed-container spotify">
+                                    <iframe src="https://open.spotify.com/embed/track/123456789" width="100%" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-spotify"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-apple"></i></a>
+        </footer>
+        
+        <div class="copyright">
+            © 2023 LEO REYES. All rights reserved.
+        </div>
+    </div>
+    
+    <script type="module" src="/src/js/music.js"></script>
+</body>
+</html> 

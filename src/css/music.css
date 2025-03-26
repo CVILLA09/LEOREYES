@@ -1,0 +1,141 @@
+/* Music page specific styles */
+
+.content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: calc(100vh - 180px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.nav-logo {
+    height: 40px;
+    margin-right: 20px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+}
+
+.music-container {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+.music-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.album-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.album-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.album-info {
+    padding: 20px;
+}
+
+.album-info h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.album-info p {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.music-embeds {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.embed-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.copyright {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav-left {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .content {
+        padding: 80px 15px 40px;
+    }
+    
+    .album-info h3 {
+        font-size: 20px;
+    }
+    
+    .cta-button {
+        padding: 12px 24px;
+        font-size: 16px;
+    }
+} 

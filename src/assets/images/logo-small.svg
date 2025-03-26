@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <style>
+    .text {
+      fill: white;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+    }
+    .leo {
+      font-size: 32px;
+    }
+    .reyes {
+      font-size: 32px;
+    }
+  </style>
+  <g>
+    <text x="10" y="35" class="text leo">LEO</text>
+    <text x="10" y="70" class="text reyes">REYES</text>
+  </g>
+</svg> 
