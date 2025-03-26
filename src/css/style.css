@@ -33,7 +33,7 @@ body, html {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 40px;
+    padding: 25px 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,17 +48,16 @@ body, html {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 50px;
 }
 
 .nav-logo {
-    height: 60px;
-    margin-right: 20px;
+    height: 100px;
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 50px;
 }
 
 .nav-link {
@@ -66,8 +65,9 @@ body, html {
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     transition: color 0.3s ease;
+    text-transform: uppercase;
 }
 
 .nav-link:hover {
@@ -80,18 +80,20 @@ body, html {
 }
 
 .nav-button {
-    padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 5px;
+    padding: 12px 25px;
+    background-color: rgba(30, 30, 30, 0.8);
+    border-radius: 30px;
     color: white;
     text-decoration: none;
     font-weight: bold;
-    letter-spacing: 1px;
+    font-size: 14px;
+    letter-spacing: 2px;
     transition: background-color 0.3s ease;
+    text-transform: uppercase;
 }
 
 .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(50, 50, 50, 0.9);
 }
 
 .social-links {

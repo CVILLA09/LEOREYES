@@ -9,11 +9,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 20px;
+    padding: 100px 20px 60px;
 }
 
 .nav-logo {
-    height: 60px;
+    height: 100px;
     margin-right: 20px;
 }
 
@@ -25,12 +25,12 @@
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 50px;
 }
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 50px;
 }
 
 .nav-link.active {
@@ -44,7 +44,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 60px;
+    padding-top: 60px;
 }
 
 .cta-button {
@@ -53,11 +54,13 @@
     border: 2px solid white;
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 2px;
     transition: all 0.3s ease;
     text-align: center;
+    margin-bottom: 40px;
+    min-width: 450px;
 }
 
 .cta-button:hover {
@@ -73,33 +76,50 @@
 }
 
 .album-card {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    background-color: transparent;
     border-radius: 10px;
     overflow: hidden;
     width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .album-image {
     width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-}
-
-.album-info {
-    padding: 20px;
-}
-
-.album-info h3 {
-    font-size: 24px;
-    margin-bottom: 5px;
-}
-
-.album-info p {
-    font-size: 16px;
-    color: #ccc;
+    display: block;
     margin-bottom: 20px;
+}
+
+.album-card h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.album-card p {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 25px;
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(50, 50, 50, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+    transform: translateY(-2px);
 }
 
 .music-embeds {
@@ -113,6 +133,7 @@
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     overflow: hidden;
+    margin-bottom: 10px;
 }
 
 .copyright {
@@ -122,6 +143,22 @@
     padding: 20px;
     color: rgba(255, 255, 255, 0.6);
     font-size: 14px;
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.music-player-container {
+    margin-top: 20px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 /* Responsive adjustments */
