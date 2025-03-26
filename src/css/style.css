@@ -43,7 +43,17 @@ body, html {
 .nav-left {
     display: flex;
     align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
     gap: 30px;
+}
+
+.nav-logo {
+    height: 60px;
+    margin-right: 20px;
 }
 
 .nav-links {
