@@ -94,7 +94,7 @@ export class BackgroundManager {
     
     createNebula() {
         // Add some nebula-like clouds to the background
-        const nebulaCount = 800; // Increased from 500
+        const nebulaCount = 800;
         const nebulaGeometry = new THREE.BufferGeometry();
         const nebulaPositions = new Float32Array(nebulaCount * 3);
         const nebulaSizes = new Float32Array(nebulaCount);
@@ -111,12 +111,28 @@ export class BackgroundManager {
             nebulaPositions[i * 3 + 2] = radius * Math.sin(theta);
             
             // Large particles for nebula effect
-            nebulaSizes[i] = 8 + Math.random() * 20; // Increased size
+            nebulaSizes[i] = 8 + Math.random() * 20;
             
-            // Nebula colors - blues and purples
-            const hue = 0.6 + Math.random() * 0.2;
-            const saturation = 0.5 + Math.random() * 0.5;
-            const lightness = 0.4 + Math.random() * 0.3; // Brighter
+            // Cyberpunk colors - reds, blues, purples
+            let hue, saturation, lightness;
+            
+            // Randomly assign red or blue hues for cyberpunk feel
+            if (Math.random() > 0.5) {
+                // Red to pink/purple range
+                hue = 0.95 + Math.random() * 0.1; // Red hues
+                if (Math.random() > 0.5) {
+                    hue = 0.8 + Math.random() * 0.1; // Purple hues
+                }
+            } else {
+                // Blue to cyan range
+                hue = 0.55 + Math.random() * 0.1; // Blue hues
+                if (Math.random() > 0.5) {
+                    hue = 0.45 + Math.random() * 0.1; // Cyan hues
+                }
+            }
+            
+            saturation = 0.7 + Math.random() * 0.3; // Highly saturated
+            lightness = 0.4 + Math.random() * 0.3; // Brighter
             
             // Convert HSL to RGB
             const { r, g, b } = this.hslToRgb(hue, saturation, lightness);
@@ -241,13 +257,36 @@ export class BackgroundManager {
             
             // Twinkle effect - vary the size of random stars
             const sizes = this.particles.attributes.size.array;
-            for (let i = 0; i < 150; i++) { // Increased from 50 for more twinkling
+            for (let i = 0; i < 150; i++) {
                 const idx = Math.floor(Math.random() * sizes.length);
                 sizes[idx] = Math.random() > 0.95 ? 
                       Math.random() * 0.15 : // Occasional bright stars
                       Math.random() * 0.05 + 0.01;
             }
             this.particles.attributes.size.needsUpdate = true;
+            
+            // Add color pulsing for cyberpunk effect
+            if (this.particles.attributes.color) {
+                const colors = this.particles.attributes.color.array;
+                // Only update a small portion of stars each frame for efficiency
+                for (let i = 0; i < 30; i++) {
+                    const idx = Math.floor(Math.random() * (colors.length / 3)) * 3;
+                    
+                    // Random chance to add red or blue tinting to some stars
+                    if (Math.random() > 0.7) {
+                        // Enhance red component
+                        colors[idx] = Math.min(colors[idx] * 1.05, 1.0);
+                        colors[idx + 1] *= 0.98; // Slightly reduce green
+                        colors[idx + 2] *= 0.98; // Slightly reduce blue
+                    } else if (Math.random() > 0.7) {
+                        // Enhance blue component
+                        colors[idx] *= 0.98; // Slightly reduce red
+                        colors[idx + 1] *= 0.98; // Slightly reduce green
+                        colors[idx + 2] = Math.min(colors[idx + 2] * 1.05, 1.0);
+                    }
+                }
+                this.particles.attributes.color.needsUpdate = true;
+            }
         }
         
         if (this.nebulaParticles) {

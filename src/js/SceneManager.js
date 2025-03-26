@@ -72,45 +72,70 @@ export class SceneManager {
             }
         });
         
-        // Ambient light - increased intensity
-        const ambientLight = new THREE.AmbientLight(0x555566, 0.6);
+        // Ambient light - increased intensity but darker to emphasize neon
+        const ambientLight = new THREE.AmbientLight(0x333344, 0.5);
         this.scene.add(ambientLight);
         
         // Main light from front-right-top - increased intensity
-        const mainLight = new THREE.DirectionalLight(0xffffff, 2.5);
+        const mainLight = new THREE.DirectionalLight(0xffffff, 2.0);
         mainLight.position.set(5, 5, 8);
         mainLight.castShadow = true;
         mainLight.shadow.mapSize.width = 2048;
         mainLight.shadow.mapSize.height = 2048;
         this.scene.add(mainLight);
         
-        // Rim light from back - increased intensity
-        const rimLight = new THREE.DirectionalLight(0x6666ff, 1.2);
-        rimLight.position.set(-5, 2, -5);
-        this.scene.add(rimLight);
-        
-        // Add a soft fill light from the front - increased intensity
-        const fillLight = new THREE.DirectionalLight(0xaaaaff, 0.8);
-        fillLight.position.set(0, -3, 10);
-        this.scene.add(fillLight);
-        
-        // Add some point lights for flare effects - increased intensity
-        const pointLight1 = new THREE.PointLight(0x5555ff, 2, 70);
-        pointLight1.position.set(-10, 10, 10);
-        this.scene.add(pointLight1);
-        
-        const pointLight2 = new THREE.PointLight(0xff5555, 2, 70);
-        pointLight2.position.set(10, -10, -10);
-        this.scene.add(pointLight2);
-        
         // Add a strong white light from the front specifically for the logo
-        const logoLight = new THREE.SpotLight(0xffffff, 3);
-        logoLight.position.set(0, 0, 20);
+        const logoLight = new THREE.SpotLight(0xffffff, 2.5);
+        logoLight.position.set(0, 0, 15);
         logoLight.angle = Math.PI / 6;
         logoLight.penumbra = 0.5;
         logoLight.decay = 1;
         logoLight.distance = 100;
         this.scene.add(logoLight);
+        
+        // CYBERPUNK NEON LIGHTS
+        
+        // Neon Red Light - from right side
+        const neonRedLight = new THREE.PointLight(0xff0055, 2, 100);
+        neonRedLight.position.set(15, 0, 5);
+        this.scene.add(neonRedLight);
+        
+        // Add red spotlight for dramatic effect
+        const redSpotlight = new THREE.SpotLight(0xff0055, 3, 100, Math.PI / 6, 0.5);
+        redSpotlight.position.set(20, 5, 10);
+        redSpotlight.target.position.set(0, 0, 0);
+        this.scene.add(redSpotlight);
+        this.scene.add(redSpotlight.target);
+        
+        // Neon Blue Light - from left side
+        const neonBlueLight = new THREE.PointLight(0x00aaff, 2, 100);
+        neonBlueLight.position.set(-15, 0, 5);
+        this.scene.add(neonBlueLight);
+        
+        // Add blue spotlight for dramatic effect
+        const blueSpotlight = new THREE.SpotLight(0x00aaff, 3, 100, Math.PI / 6, 0.5);
+        blueSpotlight.position.set(-20, 5, 10);
+        blueSpotlight.target.position.set(0, 0, 0);
+        this.scene.add(blueSpotlight);
+        this.scene.add(blueSpotlight.target);
+        
+        // Add some neon glow from below for dramatic cyberpunk lighting
+        const bottomRedLight = new THREE.PointLight(0xff0055, 1.5, 50);
+        bottomRedLight.position.set(5, -10, 5);
+        this.scene.add(bottomRedLight);
+        
+        const bottomBlueLight = new THREE.PointLight(0x00aaff, 1.5, 50);
+        bottomBlueLight.position.set(-5, -10, 5);
+        this.scene.add(bottomBlueLight);
+        
+        // Pulsing lights - will be animated in the render loop
+        this.redNeonPulse = new THREE.PointLight(0xff0055, 1, 30);
+        this.redNeonPulse.position.set(10, 0, 10);
+        this.scene.add(this.redNeonPulse);
+        
+        this.blueNeonPulse = new THREE.PointLight(0x00aaff, 1, 30);
+        this.blueNeonPulse.position.set(-10, 0, 10);
+        this.scene.add(this.blueNeonPulse);
     }
     
     onWindowResize() {
@@ -121,6 +146,17 @@ export class SceneManager {
     
     render() {
         this.controls.update();
+        
+        // Animate the neon pulsing lights
+        if (this.redNeonPulse && this.blueNeonPulse) {
+            const pulseFactor = Math.sin(Date.now() * 0.003) * 0.5 + 1.0; // Value between 0.5 and 1.5
+            this.redNeonPulse.intensity = pulseFactor;
+            
+            // Offset the blue pulse to create alternating effect
+            const pulseFactorBlue = Math.sin(Date.now() * 0.003 + Math.PI) * 0.5 + 1.0;
+            this.blueNeonPulse.intensity = pulseFactorBlue;
+        }
+        
         this.renderer.render(this.scene, this.camera);
     }
 } 
