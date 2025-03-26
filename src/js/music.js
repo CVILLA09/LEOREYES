@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { SceneManager } from './SceneManager.js';
 import { BackgroundManager } from './BackgroundManager.js';
+import { ScrollAnimations } from './scroll-animations.js';
 
 // Music page application class
 class MusicApp {
@@ -24,6 +25,9 @@ class MusicApp {
         
         // Initialize music page interactions
         this.initMusicInteractions();
+        
+        // Initialize scroll animations
+        this.scrollAnimations = new ScrollAnimations();
     }
     
     animate() {

@@ -167,6 +167,18 @@
     overflow: hidden;
 }
 
+/* Scroll Animation Classes */
+.fade-element {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .nav-left {
