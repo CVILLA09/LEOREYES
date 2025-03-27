@@ -86,8 +86,8 @@ body, html {
 }
 
 .nav-link.active {
-    border-bottom: 2px solid white;
-    padding-bottom: 2px;
+    color: #00cc33;
+    font-weight: 700;
 }
 
 .nav-button {
