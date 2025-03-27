@@ -82,7 +82,7 @@ body, html {
 }
 
 .nav-link:hover {
-    color: #a0a0a0;
+    color: #00cc33;
 }
 
 .nav-link.active {
@@ -106,7 +106,7 @@ body, html {
 }
 
 .nav-button:hover {
-    background-color: rgba(50, 50, 50, 0.9);
+    background-color: rgba(0, 204, 51, 0.5);
 }
 
 .social-links {
@@ -134,7 +134,7 @@ body, html {
 }
 
 .social-icon:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 204, 51, 0.5);
     transform: translateY(-3px);
 }
 
@@ -184,6 +184,6 @@ body, html {
 }
 
 .home-social-links .social-icon:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(0, 204, 51, 0.5);
     transform: translateY(-3px);
 } 

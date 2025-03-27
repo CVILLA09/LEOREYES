@@ -65,7 +65,7 @@
 }
 
 .cta-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 204, 51, 0.3);
     transform: translateY(-3px);
 }
 
@@ -119,7 +119,7 @@
 }
 
 .social-icon:hover {
-    background-color: rgba(80, 80, 80, 0.9);
+    background-color: rgba(0, 204, 51, 0.5);
     transform: translateY(-2px);
 }
 
