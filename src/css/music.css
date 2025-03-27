@@ -175,6 +175,14 @@
     border-radius: 12px;
 }
 
+.apple-music-artist {
+    margin: 30px auto;
+    max-width: 600px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 12px;
+}
+
 /* Scroll Animation Classes */
 .fade-element {
     opacity: 0;
