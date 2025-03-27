@@ -167,6 +167,14 @@
     overflow: hidden;
 }
 
+.spotify-artist {
+    margin: 30px auto;
+    max-width: 600px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
 /* Scroll Animation Classes */
 .fade-element {
     opacity: 0;
