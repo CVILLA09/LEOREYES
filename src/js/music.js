@@ -17,6 +17,14 @@ class MusicApp {
         // Initialize background with stars
         this.backgroundManager = new BackgroundManager(this.sceneManager.scene);
         
+        // Ensure the canvas spans full page even when scrolling
+        this.container.style.position = 'fixed';
+        this.container.style.top = '0';
+        this.container.style.left = '0';
+        this.container.style.width = '100%';
+        this.container.style.height = '100%';
+        this.container.style.zIndex = '1';
+        
         // Start animation loop
         this.animate();
         

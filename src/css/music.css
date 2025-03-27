@@ -171,7 +171,7 @@
     margin: 30px auto;
     max-width: 600px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: transparent;
     border-radius: 12px;
 }
 
