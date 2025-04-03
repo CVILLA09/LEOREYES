@@ -16,8 +16,8 @@ export class BackgroundManager {
     
     createStars() {
         // Parameters
-        const particleCount = 30000; // Increased from 18000 to match reference image
-        const particleSize = 0.1; // Increased from 0.08
+        const particleCount = 50000; // Increased from 30000 to match reference image
+        const particleSize = 0.12; // Increased from 0.1
         const particleDistance = 150;
         
         // Create particles
@@ -42,9 +42,9 @@ export class BackgroundManager {
             positions[i * 3 + 2] = z;
             
             // Randomize size with many more bright stars
-            sizes[i] = Math.random() > 0.6 ? 
-                0.15 + Math.random() * 0.25 : // 40% brighter stars (increased from 30%)
-                0.08 + Math.random() * 0.08; // Base stars bigger too
+            sizes[i] = Math.random() > 0.55 ? 
+                0.15 + Math.random() * 0.3 : // 45% brighter stars (increased from 40%)
+                0.1 + Math.random() * 0.08; // Base stars bigger too
             
             // Star colors (mostly white, with more colored stars)
             if (Math.random() > 0.85) {
@@ -94,7 +94,7 @@ export class BackgroundManager {
     
     createNebula() {
         // Add some nebula-like clouds to the background
-        const nebulaCount = 800;
+        const nebulaCount = 1200; // Increased from 800
         const nebulaGeometry = new THREE.BufferGeometry();
         const nebulaPositions = new Float32Array(nebulaCount * 3);
         const nebulaSizes = new Float32Array(nebulaCount);
@@ -111,7 +111,7 @@ export class BackgroundManager {
             nebulaPositions[i * 3 + 2] = radius * Math.sin(theta);
             
             // Large particles for nebula effect
-            nebulaSizes[i] = 8 + Math.random() * 20;
+            nebulaSizes[i] = 8 + Math.random() * 25; // Increased max size
             
             // Cyberpunk colors - reds, blues, purples
             let hue, saturation, lightness;
@@ -154,7 +154,7 @@ export class BackgroundManager {
             sizeAttenuation: true,
             map: nebulaTexture,
             transparent: true,
-            opacity: 0.25, // Increased from 0.15
+            opacity: 0.3, // Increased from 0.25
             vertexColors: true,
             blending: THREE.AdditiveBlending,
             depthWrite: false
@@ -182,9 +182,9 @@ export class BackgroundManager {
         );
         
         gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.1, 'rgba(255, 255, 255, 0.9)'); // Brighter falloff
-        gradient.addColorStop(0.4, 'rgba(200, 200, 255, 0.6)'); // Brighter
-        gradient.addColorStop(1, 'rgba(0, 0, 128, 0)'); // More color in the glow
+        gradient.addColorStop(0.1, 'rgba(255, 255, 255, 1)'); // Fully bright center
+        gradient.addColorStop(0.4, 'rgba(220, 220, 255, 0.7)'); // Brighter middle
+        gradient.addColorStop(1, 'rgba(0, 0, 150, 0)'); // More color in the glow
         
         context.fillStyle = gradient;
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -251,9 +251,14 @@ export class BackgroundManager {
     
     update() {
         if (this.particleSystem) {
-            // Slowly rotate the particle system
-            this.particleSystem.rotation.y += 0.0001;
-            this.particleSystem.rotation.x += 0.00005;
+            // Increase rotation speed for more noticeable star movement
+            this.particleSystem.rotation.y += 0.0003;
+            this.particleSystem.rotation.x += 0.0001;
+            
+            // Add slight oscillation to create more dynamic star field
+            const time = Date.now() * 0.0001;
+            this.particleSystem.position.x = Math.sin(time) * 0.5;
+            this.particleSystem.position.y = Math.cos(time * 0.7) * 0.3;
             
             // Twinkle effect - vary the size of random stars
             const sizes = this.particles.attributes.size.array;
@@ -289,9 +294,7 @@ export class BackgroundManager {
             }
         }
         
-        if (this.nebulaParticles) {
-            // Slowly rotate the nebula
-            this.nebulaParticles.rotation.y += 0.00005;
-        }
+        // Remove nebula rotation to keep it stationary
+        // No rotation update for nebula
     }
 } 
