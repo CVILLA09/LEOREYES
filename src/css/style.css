@@ -39,17 +39,20 @@ body, html {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    height: 160px;
 }
 
 .nav-left {
     display: flex;
     align-items: center;
+    height: 110px;
 }
 
 .nav-right {
     display: flex;
     align-items: center;
     gap: 50px;
+    height: 110px;
 }
 
 .nav-logo {
