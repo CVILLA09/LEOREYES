@@ -2,8 +2,8 @@
 
 /* Ensure navbar has the same position and spacing as home page */
 .navbar {
-    top: 40px; /* Match the top value from style.css */
-    padding: 25px 80px; /* Match the padding from style.css */
+    top: 10px; /* Match the top value from style.css */
+    padding: 10px 80px; /* Match the padding from style.css */
 }
 
 .content {
@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     height: 110px; /* Set a fixed height to match the logo */
-    padding-left: 70px; /* Add padding to move the logo right */
+    padding-left: 0; /* Remove padding to align with the left edge */
 }
 
 .nav-left, .nav-right {
