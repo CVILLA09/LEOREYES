@@ -1,5 +1,4 @@
-import * as THREE from 'three';
-
+// Three.js ya está cargado desde CDN como objeto global
 export class BackgroundManager {
     constructor(scene) {
         this.scene = scene;

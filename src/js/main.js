@@ -1,49 +1,74 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { SceneManager } from './SceneManager.js';
-import { BackgroundManager } from './BackgroundManager.js';
-import { LogoManager } from './LogoManager.js';
+// Three.js ya está cargado desde CDN como objeto global
+console.log('🚀 Main.js cargado correctamente');
+console.log('Three.js version:', THREE.REVISION);
 
 // Main app class
 class App {
     constructor() {
+        console.log('🏗️ Inicializando App...');
+        
         // Set up the container
         this.container = document.getElementById('canvas-container');
+        console.log('📦 Container encontrado:', this.container);
         
-        // Initialize scene manager
-        this.sceneManager = new SceneManager(this.container);
+        if (!this.container) {
+            console.error('❌ No se encontró el container canvas-container');
+            return;
+        }
         
-        // Initialize background
-        this.backgroundManager = new BackgroundManager(this.sceneManager.scene);
-        
-        // Initialize logo
-        this.logoManager = new LogoManager(this.sceneManager.scene);
-        
-        // Start animation loop
-        this.animate();
-        
-        // Handle window resize
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        try {
+            // Initialize scene manager
+            console.log('🎬 Inicializando SceneManager...');
+            this.sceneManager = new SceneManager(this.container);
+            
+            // Initialize background
+            console.log('🌌 Inicializando BackgroundManager...');
+            this.backgroundManager = new BackgroundManager(this.sceneManager.scene);
+            
+            // Initialize logo
+            console.log('🎨 Inicializando LogoManager...');
+            this.logoManager = new LogoManager(this.sceneManager.scene);
+            
+            console.log('✅ App inicializada correctamente');
+            
+            // Start animation loop
+            this.animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', this.onWindowResize.bind(this));
+            
+        } catch (error) {
+            console.error('❌ Error al inicializar App:', error);
+        }
     }
     
     animate() {
         requestAnimationFrame(this.animate.bind(this));
         
-        // Update components
-        this.backgroundManager.update();
-        this.logoManager.update();
-        
-        // Render scene
-        this.sceneManager.render();
+        try {
+            // Update components
+            if (this.backgroundManager) this.backgroundManager.update();
+            if (this.logoManager) this.logoManager.update();
+            
+            // Render scene
+            if (this.sceneManager) this.sceneManager.render();
+        } catch (error) {
+            console.error('❌ Error en animate loop:', error);
+        }
     }
     
     onWindowResize() {
-        this.sceneManager.onWindowResize();
+        if (this.sceneManager) this.sceneManager.onWindowResize();
     }
 }
 
 // Initialize the app when the window loads
 window.addEventListener('load', () => {
+    console.log('📱 Window loaded, iniciando App...');
     new App();
+});
+
+// También intentar inicializar cuando DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('📄 DOM Content Loaded');
 }); 

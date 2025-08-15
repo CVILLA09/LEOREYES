@@ -1,6 +1,4 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-
+// Three.js ya está cargado desde CDN como objeto global
 export class SceneManager {
     constructor(container) {
         this.container = container;
@@ -52,7 +50,7 @@ export class SceneManager {
     }
     
     setupControls() {
-        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableDamping = true;
         this.controls.dampingFactor = 0.05;
         this.controls.enableZoom = false;

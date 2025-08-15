@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/music.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r160/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/OBJLoader.js"></script>
+    
+    <!-- Script de prueba -->
+    <script>
+        console.log('🔍 Verificando carga de Three.js en music.html...');
+        if (typeof THREE !== 'undefined') {
+            console.log('✅ Three.js cargado correctamente, versión:', THREE.REVISION);
+        } else {
+            console.error('❌ Three.js no se cargó correctamente');
+        }
+    </script>
 </head>
 <body>
     <div id="app">

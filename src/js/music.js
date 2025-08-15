@@ -1,12 +1,5 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { SceneManager } from './SceneManager.js';
-import { BackgroundManager } from './BackgroundManager.js';
-import { ScrollAnimations } from './scroll-animations.js';
-
-// Music page application class
-class MusicApp {
+// Three.js ya está cargado desde CDN como objeto global
+export class MusicApp {
     constructor() {
         // Set up the container
         this.container = document.getElementById('canvas-container');
