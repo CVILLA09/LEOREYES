@@ -1,4 +1,6 @@
-// Three.js ya está cargado desde CDN como objeto global
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
 export class SceneManager {
     constructor(container) {
         this.container = container;

@@ -1,4 +1,6 @@
-// Three.js ya está cargado desde CDN como objeto global
+import * as THREE from 'three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+
 export class LogoManager {
     constructor(scene) {
         this.scene = scene;
@@ -19,8 +21,9 @@ export class LogoManager {
         });
         
         // Load the OBJ file
-        const objLoader = new THREE.OBJLoader();
-        objLoader.load('/src/assets/models/logo.obj', (object) => {
+        const objLoader = new OBJLoader();
+        const logoUrl = new URL('../assets/models/logo.obj', import.meta.url).href;
+        objLoader.load(logoUrl, (object) => {
             // Apply material to all meshes in the loaded object
             object.traverse((child) => {
                 if (child instanceof THREE.Mesh) {
