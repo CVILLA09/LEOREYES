@@ -1,4 +1,5 @@
-// vite.config.js
+import { resolve } from 'path';
+
 export default {
   base: '/LEOREYES/',
   root: './',
@@ -8,8 +9,10 @@ export default {
     emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
-      output: {
-        manualChunks: undefined
+      // especificar cada HTML como entrada
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        music: resolve(__dirname, 'music.html')
       }
     }
   },
