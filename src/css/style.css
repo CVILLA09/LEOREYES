@@ -275,6 +275,12 @@ body, html {
 		border-radius: 0 0 8px 8px;
 	}
 	.home-nav .nav-menu.open { display: flex; }
+	/* Ensure hamburger on home appears on the left */
+	.home-nav .menu-toggle {
+		position: absolute;
+		left: 20px;
+		top: 10px;
+	}
 
 	.nav-left,
 	.nav-right {
