@@ -33,6 +33,9 @@ export class MusicApp {
         
         // Initialize music page interactions
         this.initMusicInteractions();
+
+        // Initialize mobile navigation toggle
+        this.initMenuToggle();
         
         // Initialize scroll animations
         this.scrollAnimations = new ScrollAnimations();
@@ -71,6 +74,16 @@ export class MusicApp {
         
         // Additional music page interactions could be added here
         // For example, handling audio playback, visualizations, etc.
+    }
+
+    initMenuToggle() {
+        const toggleButton = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('nav-menu');
+        if (!toggleButton || !menu) return;
+        toggleButton.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('open');
+            toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
     }
 }
 

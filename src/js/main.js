@@ -42,6 +42,9 @@ class App {
             
             // Handle window resize
             window.addEventListener('resize', this.onWindowResize.bind(this));
+
+            // Initialize mobile navigation toggle
+            this.initMenuToggle();
             
         } catch (error) {
             console.error('❌ Error al inicializar App:', error);
@@ -65,6 +68,16 @@ class App {
     
     onWindowResize() {
         if (this.sceneManager) this.sceneManager.onWindowResize();
+    }
+
+    initMenuToggle() {
+        const toggleButton = document.querySelector('.menu-toggle');
+        const menu = document.getElementById('nav-menu');
+        if (!toggleButton || !menu) return;
+        toggleButton.addEventListener('click', () => {
+            const isOpen = menu.classList.toggle('open');
+            toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
     }
 }
 

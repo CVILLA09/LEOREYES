@@ -6,6 +6,24 @@
     padding: 25px 80px; /* Match the padding from style.css */
 }
 
+/* Base styles for hamburger menu on music page */
+.menu-toggle {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 28px;
+	color: #fff;
+	position: relative;
+	z-index: 1002;
+}
+
+.nav-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
 .content {
     position: relative;
     z-index: 10;
@@ -231,49 +249,46 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    /* Navbar harmonized with home */
+    /* Navbar harmonized with home + collapsible menu */
     .navbar {
-        top: 10px;
+        position: static;
+        top: auto;
         padding: 10px 20px;
         height: auto;
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .nav-left,
-    .nav-right {
-        height: auto;
+    .menu-toggle { display: block; }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        margin-top: 10px;
     }
+
+    .nav-menu.open { display: flex; }
+
+    .nav-left,
+    .nav-right { height: auto; }
 
     .nav-right {
         gap: 20px;
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-        margin-top: 10px;
+        margin-top: 0;
     }
 
-    .nav-links {
-        gap: 20px;
-        margin-left: 0;
-    }
+    .nav-links { gap: 20px; margin-left: 0; }
 
-    .nav-logo {
-        height: 70px;
-    }
+    .nav-logo { height: 70px; }
+    .logo-link { padding-left: 0; height: 70px; }
 
-    .logo-link {
-        padding-left: 0;
-        height: 70px;
-    }
-
-    .content {
-        padding: 80px 15px 40px;
-    }
-
-    .music-container {
-        padding-top: 50px;
-    }
+    .content { padding: 20px 15px 40px; }
+    .music-container { padding-top: 20px; }
 
     .cta-button {
         min-width: unset;

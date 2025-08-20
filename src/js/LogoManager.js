@@ -38,8 +38,10 @@ export class LogoManager {
             this.logo = new THREE.Group();
             this.logo.add(object);
             
-            // Scale and position as needed
-            this.logo.scale.set(2.6, 2.6, 2.6); // Reduced by ~30% from 3.75
+            // Scale and position as needed (responsive)
+            const isMobile = window.innerWidth <= 768;
+            const scale = isMobile ? 1.6 : 2.6;
+            this.logo.scale.set(scale, scale, scale);
             
             // Center the model based on its bounding box
             const bbox = new THREE.Box3().setFromObject(this.logo);

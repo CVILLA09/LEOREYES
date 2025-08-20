@@ -47,7 +47,8 @@ export class SceneManager {
             0.1,
             1000
         );
-        this.camera.position.set(0, 0, 12);
+        const isMobile = window.innerWidth <= 768;
+        this.camera.position.set(0, 0, isMobile ? 16 : 12);
         this.camera.lookAt(0, 0, 0);
     }
     
@@ -149,6 +150,10 @@ export class SceneManager {
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
         this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Adjust camera distance responsively on resize
+        const isMobile = window.innerWidth <= 768;
+        this.camera.position.set(0, 0, isMobile ? 16 : 12);
     }
     
     render() {

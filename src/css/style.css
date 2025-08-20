@@ -42,6 +42,24 @@ body, html {
     height: 160px;
 }
 
+/* Base styles for hamburger menu */
+.menu-toggle {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 28px;
+	color: #fff;
+	position: relative;
+	z-index: 1002;
+}
+
+.nav-menu {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
 .nav-left {
     display: flex;
     align-items: center;
@@ -202,6 +220,22 @@ body, html {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.menu-toggle {
+		display: block;
+	}
+
+	.nav-menu {
+		display: none;
+		flex-direction: column;
+		gap: 15px;
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.nav-menu.open {
+		display: flex;
 	}
 
 	.nav-left,
