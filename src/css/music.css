@@ -261,15 +261,23 @@
 
     .menu-toggle { display: block; }
 
-    .nav-menu {
+    /* Panel opens from right under navbar */
+    .music-nav { position: relative; }
+    .music-nav .nav-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: auto;
+        width: 60%;
+        background: rgba(0,0,0,0.8);
+        padding: 20px;
         display: none;
         flex-direction: column;
         gap: 15px;
-        width: 100%;
-        margin-top: 10px;
+        border-radius: 0 0 8px 8px;
     }
 
-    .nav-menu.open { display: flex; }
+    .music-nav .nav-menu.open { display: flex; }
 
     .nav-left,
     .nav-right { height: auto; }

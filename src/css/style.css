@@ -60,6 +60,20 @@ body, html {
 	width: 100%;
 }
 
+/* Mobile panel base (hidden by default on mobile via media query) */
+.nav-menu.panel {
+	position: absolute;
+	top: 100%;
+	width: 60%;
+	background: rgba(0, 0, 0, 0.8);
+	padding: 20px;
+	display: none;
+	flex-direction: column;
+	gap: 15px;
+	border-radius: 0 0 8px 8px;
+	backdrop-filter: blur(6px);
+}
+
 .nav-left {
     display: flex;
     align-items: center;
@@ -226,17 +240,31 @@ body, html {
 		display: block;
 	}
 
-	.nav-menu {
+	/* Default collapsed menu on mobile */
+	.nav-menu { display: none; }
+	.nav-menu.open { display: flex; }
+
+	/* Home-specific: subscribe fixed at right, panel opens from left */
+	.home-nav { position: relative; }
+	.home-nav .subscribe-btn {
+		position: absolute;
+		right: 20px;
+		top: 10px;
+	}
+	.home-nav .nav-menu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: auto;
+		width: 60%;
+		background: rgba(0,0,0,0.8);
+		padding: 20px;
 		display: none;
 		flex-direction: column;
 		gap: 15px;
-		width: 100%;
-		margin-top: 10px;
+		border-radius: 0 0 8px 8px;
 	}
-
-	.nav-menu.open {
-		display: flex;
-	}
+	.home-nav .nav-menu.open { display: flex; }
 
 	.nav-left,
 	.nav-right {
