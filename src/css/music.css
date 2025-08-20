@@ -41,28 +41,13 @@
     display: block; /* Ensure consistent rendering */
 }
 
-.logo-link {
-    display: flex;
-    align-items: center;
-    height: 110px; /* Set a fixed height to match the logo */
-    padding-left: 70px; /* Add padding to move the logo right */
-}
+.logo-link { display: flex; align-items: center; height: 110px; }
 
-.nav-left, .nav-right {
-    display: flex;
-    align-items: center;
-    height: 110px; /* Set fixed height for consistent vertical alignment */
-}
+.nav-left, .nav-right { display: flex; align-items: center; height: 110px; }
 
-.nav-right {
-    gap: 50px; /* Match the gap from style.css */
-}
+.nav-right { gap: 50px; margin-left: auto; align-items: center; }
 
-.nav-links {
-    display: flex;
-    gap: 50px;
-    margin-left: 0; /* Remove default margin to ensure proper alignment */
-}
+.nav-links { display: flex; gap: 50px; margin-left: 0; }
 
 .nav-link.active {
     color: #00cc33;
