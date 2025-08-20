@@ -98,6 +98,11 @@ export class MusicApp {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeMenu();
         });
+
+        // Close when clicking a nav link
+        menu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
     }
 }
 
