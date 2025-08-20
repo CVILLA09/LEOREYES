@@ -191,3 +191,58 @@ body, html {
     background-color: rgba(0, 204, 51, 0.5);
     transform: translateY(-3px);
 } 
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	/* Navbar */
+	.navbar {
+		top: 10px;
+		padding: 10px 20px;
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.nav-left,
+	.nav-right {
+		height: auto;
+	}
+
+	.nav-right {
+		gap: 20px;
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.nav-links {
+		margin-left: 0;
+		gap: 20px;
+	}
+
+	.nav-button {
+		padding: 10px 20px;
+		font-size: 14px;
+		margin-top: 10px;
+	}
+
+	.nav-logo {
+		height: 70px;
+	}
+
+	.logo-link {
+		padding-left: 0;
+		height: 70px;
+	}
+
+	/* Home content */
+	.logo-container {
+		height: 200px;
+	}
+
+	.home-social-links {
+		margin-top: 300px;
+	}
+}
