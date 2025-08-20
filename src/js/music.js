@@ -79,10 +79,24 @@ export class MusicApp {
     initMenuToggle() {
         const toggleButton = document.querySelector('.menu-toggle');
         const menu = document.getElementById('nav-menu');
+        const overlay = document.getElementById('nav-overlay');
         if (!toggleButton || !menu) return;
+
+        const closeMenu = () => {
+            menu.classList.remove('open');
+            toggleButton.setAttribute('aria-expanded', 'false');
+            if (overlay) overlay.classList.remove('open');
+        };
+
         toggleButton.addEventListener('click', () => {
             const isOpen = menu.classList.toggle('open');
             toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            if (overlay) overlay.classList.toggle('open', isOpen);
+        });
+
+        if (overlay) overlay.addEventListener('click', closeMenu);
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
         });
     }
 }

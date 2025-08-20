@@ -60,6 +60,16 @@ body, html {
 	width: 100%;
 }
 
+/* Overlay for mobile menu */
+.nav-overlay {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	display: none;
+	z-index: 999;
+}
+.nav-overlay.open { display: block; }
+
 /* Mobile panel base (hidden by default on mobile via media query) */
 .nav-menu.panel {
 	position: absolute;
